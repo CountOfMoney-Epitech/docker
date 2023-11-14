@@ -2,21 +2,21 @@ DOCKER_API=$(docker exec api)
 DOCKER_DB=$(docker exec database)
 
 # Global
-config: 
-	config-api
+config: config-api
 
-install: 
-	build-api
+install: build-api
 
-start: 
-	start-api
-	start-database
+start: start-api start-database
 
 stop:
 	docker compose down
 
-purge:
-	docker compose rm -v
+restart: 
+	docker compose restart
+
+#Careful, this removes all database data
+purge: stop
+	docker volume rm pgdata
 
 # api
 config-api:
