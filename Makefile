@@ -2,11 +2,11 @@ DOCKER_API=$(docker exec api)
 DOCKER_DB=$(docker exec database)
 
 # Global
-config: config-api
+config: config-api config-webapp
 
-install: build-api
+build: build-api build-webapp
 
-start: start-api start-database
+start: start-database start-api start-webapp
 
 stop:
 	docker compose down
@@ -14,7 +14,8 @@ stop:
 restart: 
 	docker compose restart
 
-#Careful, this removes all database data
+reset: purge config build start
+
 purge: stop
 	docker volume rm pgdata
 
@@ -25,14 +26,31 @@ config-api:
 	cp api/entrypoint.sh ../api
 
 build-api:
-	docker compose build api
+	docker compose build api --no-cache
 
 start-api:
 	docker compose up -d api
 
+# webapp
+config-webapp:
+	cp webapp/Webapp.Dockerfile ../webapp
+	cp webapp/.dockerignore ../webapp
+	cp webapp/nginx.conf ../webapp/nginx
+	cd ../webapp && npm install
+
+build-webapp:
+	docker compose build webapp --no-cache
+
+start-webapp:
+	docker compose up -d webapp
+
 # database
 start-database: 
 	docker compose up -d database
+
+# Utils
+setup-envs:
+	
 
 
 
