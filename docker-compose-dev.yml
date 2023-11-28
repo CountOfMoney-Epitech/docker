@@ -1,13 +1,14 @@
 version: '3.8'
 
+name: count-of-money-dev-services
+
 services:
   api: 
     container_name: api
     build: 
       context: ../api
-      dockerfile: Api.Dockerfile
     env_file:
-      - ./api/.env
+      - ./api/dev/.env
     ports:
       - 3000:3000
     volumes:
@@ -18,19 +19,21 @@ services:
     container_name: webapp
     build: 
       context: ../webapp
-      dockerfile: Webapp.Dockerfile
     env_file:
-      - ./webapp/.env
+      - ./webapp/dev/.env
     ports:
-      - 80:80    
+      - 5173:5173   
+    volumes:
+      - ../webapp/:/app
     extra_hosts:
-      - "host.docker.internal:host-gateway"  
+      - "host.docker.internal:host-gateway" 
+    entrypoint: /app/entrypoint.sh
 
   database:
     container_name: database
     image: postgres:alpine
     env_file:
-      - ./database/.env
+      - ./database/dev/.env
     ports:
       - 5432:5432
     volumes:
@@ -38,4 +41,4 @@ services:
   
 volumes: 
   pgdata:
-    name: "pgdata"
+    name: "pgdata-dev"
