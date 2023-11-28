@@ -9,6 +9,8 @@
 ## Installing :
 
 - Run ```make config```
+- This command will generate .env files in directories if they do not exist already. You will need to document these variables.
+
 - Run ```make install```
 - Run ```make start```
 
