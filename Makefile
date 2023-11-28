@@ -2,6 +2,8 @@ DOCKER_API=$(docker exec api)
 DOCKER_DB=$(docker exec database)
 
 # Global
+install: config build start
+
 config: config-api config-webapp
 
 build: build-api build-webapp build-database
