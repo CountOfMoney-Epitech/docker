@@ -45,7 +45,7 @@ start-webapp:
 
 # webapp
 config-webapp:
-	cp webapp/Webapp.Dockerfile ../webapp
+	cp webapp/Dockerfile ../webapp
 	cp webapp/.dockerignore ../webapp
 	cd ../webapp && npm install
 
