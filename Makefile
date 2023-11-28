@@ -43,27 +43,12 @@ build-webapp:
 start-webapp:
 	docker compose -f docker-compose-dev.yml up -d webapp
 
-# webapp
-config-webapp:
-	cp webapp/Dockerfile ../webapp
-	cp webapp/.dockerignore ../webapp
-	cd ../webapp && npm install
-
-build-webapp:
-	docker compose build webapp --no-cache
-
-start-webapp:
-	docker compose up -d webapp
-
 # database
 build-database: 
 	docker compose -f docker-compose-dev.yml build database
 
 start-database:
 	docker compose -f docker-compose-dev.yml up -d database
-
-# Utils
-setup-envs:
 	
 
 
